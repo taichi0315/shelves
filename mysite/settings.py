@@ -127,4 +127,7 @@ AUTH_USER_MODEL = 'shelves.AppUser'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_URL = 'shelves:login'
+LOGIN_REDIRECT_URL = 'shelves:index'
+
+LOGOUT_REDIRECT_URL = 'shelves:index'

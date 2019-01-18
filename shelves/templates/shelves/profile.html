@@ -1,0 +1,18 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div>
+    <p><div>{{ object.displayname }}<br>@{{ object.username }}</div></p>
+</div>
+
+<div class="float-right">
+    {% if object.username == user.username %}
+    　  <div><a href="{% url 'shelves:logout' %}">ログアウト</a></div>
+        <div>プロフィールの編集</div>
+    {% endif %}
+    <div><a href="{% url 'shelves:index' %}">ホーム</a></div>
+</div>
+
+{% endblock %}
