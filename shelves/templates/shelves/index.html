@@ -19,7 +19,7 @@
 <ul>
     <div class="border border-muted rounded p-4">
         <p><h2>{{ post.title | linebreaksbr }}</h2></p>
-        <p>{{ post.created_by.displayname }}@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p><hr>
+        <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p><hr>
         <p>{{ post.comment | linebreaksbr }}</p>
     </div>
 </ul>
