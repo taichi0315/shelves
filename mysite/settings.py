@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'annoying',
     'bootstrap4',
     'crispy_forms',
     'shelves.apps.ShelvesConfig',

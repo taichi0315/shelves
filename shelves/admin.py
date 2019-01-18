@@ -46,7 +46,7 @@ class PostAdmin(admin.ModelAdmin):
 
 class ProfileAdmin(admin.ModelAdmin):
     fieldsets = (
-        ('ユーザ名',      {'fields': ('user',)}),
+        ('ユーザ名',      {'fields': ('username',)}),
         ('プロフィール文',      {'fields': ('sentence',)}),
     )
 

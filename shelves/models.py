@@ -4,6 +4,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
+from annoying.fields import AutoOneToOneField
 
 class Post(models.Model):
     created_by = models.ForeignKey(
@@ -19,9 +20,10 @@ class Post(models.Model):
         return self.comment
 
 class Profile(models.Model):
-    user = models.OneToOneField(
+    username = AutoOneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
+        primary_key=True
     )
     sentence = models.TextField('プロフィール文',max_length=300)
 
