@@ -14,7 +14,6 @@ class SignUpForm(UserCreationForm):
         super().__init__(*args, **kwargs)
 
 class ProfileUpdateForm(forms.ModelForm):
-
     class Meta:
         model = Profile
         fields = ("sentence",)
