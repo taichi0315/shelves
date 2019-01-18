@@ -3,7 +3,7 @@ from .models import Post, AppUser, Profile
 from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm
 
 class IndexView(generic.ListView):
     template_name = 'shelves/index.html'
@@ -27,3 +27,17 @@ class SignUpView(generic.CreateView):
 class ProfileView(generic.DetailView):
     template_name = 'shelves/profile.html'
     model = AppUser
+
+class ProfileUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
+    raise_exception = False
+
+    model = Profile
+    form_class = ProfileUpdateForm
+    template_name = 'shelves/profile_update.html'
+
+    def test_func(self):
+        user = self.request.user
+        return user.pk == self.kwargs['pk'] or user.is_superuser
+
+    def get_success_url(self):
+        return resolve_url('shelves:profile', pk=self.kwargs['pk'])

@@ -12,3 +12,9 @@ class SignUpForm(UserCreationForm):
         fields = ("username","email", "displayname")
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+class ProfileUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Profile
+        fields = ("sentence",)

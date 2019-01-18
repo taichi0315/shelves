@@ -27,6 +27,9 @@ class Profile(models.Model):
     )
     sentence = models.TextField('プロフィール文',max_length=300)
 
+    def __str__(self):
+        return self.username
+
 class AppUserManager(BaseUserManager):
     use_in_migrations = True
 
