@@ -1,10 +1,10 @@
 {% extends "shelves/base.html" %}
 {% load staticfiles %}
-
 {% block content %}
 
 <div>
-    <p><div>{{ object.displayname }}<br>@{{ object.username }}</div></p>
+    <p><div>@{{ object.username }}</div></p>
+    <p><div>{{ object.profile.sentence}}</div></p>
 </div>
 
 <div class="float-right">

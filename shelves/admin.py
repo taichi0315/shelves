@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
-from .models import AppUser, Post
+from .models import AppUser, Post, Profile
 
 class AppUserChangeForm(UserChangeForm):
     class Meta:
@@ -44,5 +44,12 @@ class PostAdmin(admin.ModelAdmin):
         ('コメント',         {'fields': ('comment',)}),
     )
 
+class ProfileAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('ユーザ名',      {'fields': ('user',)}),
+        ('プロフィール文',      {'fields': ('sentence',)}),
+    )
+
 admin.site.register(AppUser, AppUserAdmin)
 admin.site.register(Post, PostAdmin)
+admin.site.register(Profile, ProfileAdmin)

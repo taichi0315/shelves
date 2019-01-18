@@ -18,6 +18,13 @@ class Post(models.Model):
     def __str__(self):
         return self.comment
 
+class Profile(models.Model):
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+    )
+    sentence = models.TextField('プロフィール文',max_length=300)
+
 class AppUserManager(BaseUserManager):
     use_in_migrations = True
 
@@ -45,7 +52,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
     username=models.CharField(_('username'), max_length=20, unique=True, primary_key=True, db_index=True)
     email = models.EmailField(_('email address'))
     displayname = models.CharField('表示名', max_length=20)
-    
     is_staff = models.BooleanField(
         _('staff status'),
         default=False,
@@ -60,7 +66,7 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
-    
+
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = AppUserManager()
     

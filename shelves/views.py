@@ -1,5 +1,5 @@
 from django.views import generic
-from .models import Post, AppUser
+from .models import Post, AppUser, Profile
 from django.urls import path, reverse_lazy
 from django.contrib.auth import views, mixins
 from .forms import LoginForm, SignUpForm
