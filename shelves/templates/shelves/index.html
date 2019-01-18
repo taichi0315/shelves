@@ -8,7 +8,7 @@
     {% if user.is_authenticated %}
         <div><a href="profile/{{ user.username }}">マイページ</a></div>
     {% else %}
-        <div><!--<a href="{% url 'shelves:signup' %}">サインアップ</a>または--><a href="{% url 'shelves:login' %}">ログイン</a></div>
+        <div><a href="{% url 'shelves:signup' %}">サインアップ</a>または<a href="{% url 'shelves:login' %}">ログイン</a></div>
     {% endif %}
 </div>
 
