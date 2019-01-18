@@ -1,0 +1,26 @@
+{% load i18n static %}
+<!DOCTYPE html>{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="{% static 'shelves/css/bootstrap.min.css' %}">
+{% block extra_css %}{% endblock %}
+<title>{% block title %}Shelves{% endblock %}</title>
+</head>
+<body>
+  <div class="container">
+    <p>
+      <div class="text-center">
+        <h1>Shelves</h1>
+      </div>
+    </p><hr>
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </div>
+
+{% block extra_js %}
+{% endblock %}
+</body>
+</html>

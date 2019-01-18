@@ -1,0 +1,27 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles%}
+{% load humanize %}
+
+{% block content %}
+
+<div>
+    {% if user.is_authenticated %}
+        <div><a href="profile/{{ user.username }}">マイページ</a></div>
+    {% else %}
+        <div><!--<a href="{% url 'shelves:signup' %}">サインアップ</a>または--><a href="{% url 'shelves:login' %}">ログイン</a></div>
+    {% endif %}
+</div>
+
+{% for post in posted_list %}
+<ul>
+    <div class="border border-muted rounded p-4">
+        <p><h2>{{ post.title | linebreaksbr }}</h2></p>
+        <p>{{ post.created_by.displayname }}@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p><hr>
+        <p>{{ post.comment | linebreaksbr }}</p>
+    </div>
+</ul>
+    {% empty %}
+    <p>投稿がありません</p>
+{% endfor %}
+
+{% endblock %}
