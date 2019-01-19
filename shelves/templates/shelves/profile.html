@@ -7,6 +7,12 @@
     <p><div>{{ object.profile.sentence}}</div></p>
 </div>
 
+<div>
+    {% for post in object.post %}
+    <p>{{ post.title }}</p>
+    {% endfor %}
+</div>
+
 <div class="float-right">
     {% if object.username == user.username %}
     　  <div><a href="{% url 'shelves:logout' %}">ログアウト</a></div>
