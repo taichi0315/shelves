@@ -18,8 +18,9 @@
 {% for post in posted_list %}
 <ul>
     <div class="border border-muted rounded p-4">
-        <p><h2>{{ post.title | linebreaksbr }}</h2></p>
-        <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p><hr>
+        <p><h4>{{ post.title | linebreaksbr }}</h4></p>
+        <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p>
+        <p><img src="{{ post.cover.url }}" /></p><hr>
         <p>{{ post.comment | linebreaksbr }}</p>
     </div>
 </ul>
