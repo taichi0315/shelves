@@ -3,13 +3,13 @@
 {% block content %}
 
 <div>
-    <p><div>@{{ object.username }}</div></p>
+    <p><div>{{ object.displayname }}@{{ object.username }}</div></p>
     <p><div>{{ object.profile.sentence}}</div></p>
 </div>
 
 <div>
-    {% for post in object.post %}
-    <p>{{ post.title }}</p>
+    {% for post in object.post_set.all %}
+    <img src="{{ post.title.cover.url }}" />
     {% endfor %}
 </div>
 

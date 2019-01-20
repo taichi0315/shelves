@@ -40,9 +40,6 @@ class Post(models.Model):
     comment = models.TextField('コメント',max_length=400)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
-    def __str__(self):
-        return self.title
-
 class Profile(models.Model):
     username = AutoOneToOneField(
         settings.AUTH_USER_MODEL,
