@@ -14,18 +14,20 @@
     <button class="btn btn-primary"><a href="{% url 'shelves:post_create' %}" style="color:#ffffff">投稿</a></button>
 </div></p>
 
-
 {% for post in posted_list %}
-<ul>
+<p>
     <div class="border border-muted rounded p-4">
         <p><h4>{{ post.title | linebreaksbr }}</h4></p>
         <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p>
-        <p><img src="{{ post.title.cover.url }}" /></p><hr>
-        <p>{{ post.comment | linebreaksbr }}</p>
+        <div class="row">
+            <div class="col-sm-3"><img src="{{ post.title.cover.url }}" /></div>
+            <div class="col-sm-8 text-wrap">{{ post.comment | linebreaksbr }}</div>
+        </div>
     </div>
-</ul>
-    {% empty %}
-    <p>投稿がありません</p>
+</p>
+{% empty %}
+<p>投稿がありません</p>
 {% endfor %}
+
 
 {% endblock %}
