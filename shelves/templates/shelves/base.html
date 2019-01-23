@@ -10,10 +10,13 @@
 </head>
 <body>
   <div class="container">
-    <p>
-      <div class="text-center">
+    <p><div class="text-center">
         <h1>Shelves</h1>
-      </div></p>
+    </div></p>
+
+    <nav class="nav justify-content-center">
+      <a class="nav-link" href="{% url 'shelves:index' %}">タイムライン</a>
+    </nav>
     <hr>
     {% block content %}
       {{ content }}

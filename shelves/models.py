@@ -16,8 +16,8 @@ class Book(models.Model):
     )
     cover = ProcessedImageField(
             verbose_name='表紙',
-            upload_to='cover', 
-            processors=[Transpose(),ResizeToFit(height=300)], 
+            upload_to='cover',
+            processors=[Transpose(),ResizeToFit(height=300)],
             format='JPEG',
             options={'quality':60},
             blank=True
