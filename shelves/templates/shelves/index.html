@@ -18,7 +18,7 @@
         <p><h4>{{ post.title | linebreaksbr }}</h4></p>
         <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p>
         <div class="row">
-            <div class="col-sm-3" id=app><img :src=info.data.items[0].volumeInfo.imageLinks.thumbnail></div>
+            <div class="col-sm-3" id=app><cover init="{{ post.title }}"></cover></div>
             <div class="col-sm-8 text-wrap">{{ post.comment | linebreaksbr }}</div>
         </div>
     </div>

@@ -14,7 +14,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
 
-    title = models.CharField(verbose_name='タイトル', max_length=256)
+    title = models.CharField('タイトル', max_length=256)
     comment = models.TextField('コメント',max_length=400)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
