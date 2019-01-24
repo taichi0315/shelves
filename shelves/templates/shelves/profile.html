@@ -2,14 +2,15 @@
 {% load staticfiles %}
 {% block content %}
 
-<div>
-    <p><div>{{ object.displayname }}@{{ object.username }}</div></p>
+<p><div class="border border-muted rounded p-4">
+    <p><h4><div>{{ object.displayname }}@{{ object.username }}</div></h4></p>
+    <hr>
     <p><div>{{ object.profile.sentence}}</div></p>
-</div>
+</div></p>
 
-<div>
+<div class="d-flex flex-wrap justify-content-center">
     {% for post in object.post_set.all %}
-    <img src="{{ post.title.cover.url }}" />
+    <div class="p-3"><img src="{{ post.title.cover.url }}" /></div>
     {% endfor %}
 </div>
 
@@ -18,7 +19,6 @@
     　  <div><a href="{% url 'shelves:logout' %}">ログアウト</a></div>
     <div><a href="{{ object.username }}/update">プロフィールの編集</a></div>
     {% endif %}
-    <div><a href="{% url 'shelves:index' %}">ホーム</a></div>
 </div>
 
 {% endblock %}
