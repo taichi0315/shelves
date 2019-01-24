@@ -8,35 +8,13 @@ from annoying.fields import AutoOneToOneField
 from imagekit.models import ProcessedImageField
 from imagekit.processors import ResizeToFit, Transpose
 
-class Book(models.Model):
-    title = models.CharField(
-        primary_key=True,
-        verbose_name="タイトル",
-        max_length=30,
-    )
-    cover = ProcessedImageField(
-            verbose_name='表紙',
-            upload_to='cover',
-            processors=[Transpose(),ResizeToFit(height=300)],
-            format='JPEG',
-            options={'quality':60},
-            blank=True
-    )
-    def __str__(self):
-        return self.title
-
 class Post(models.Model):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
 
-    title = models.ForeignKey(
-        Book,
-        verbose_name='タイトル',
-        max_length=256,
-        on_delete=models.PROTECT,
-    )
+    title = models.CharField(verbose_name='タイトル', max_length=256)
     comment = models.TextField('コメント',max_length=400)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
