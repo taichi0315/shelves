@@ -5,14 +5,12 @@
 {% block content %}
 <p><div class="text-right">
     {% if user.is_authenticated %}
-        <div><a href="profile/{{ user.username }}">マイページ</a></div>
-    {% else %}
-        <div><a href="{% url 'shelves:signup' %}">サインアップ</a>または<a href="{% url 'shelves:login' %}">ログイン</a></div>
+        <p><div class="text-right">
+            <button class="btn btn-primary"><a href="{% url 'shelves:post_create' %}" style="color:#ffffff">投稿</a></button>
+        </div></p>
     {% endif %}
 </div></p>
-<p><div class="text-right">
-    <button class="btn btn-primary"><a href="{% url 'shelves:post_create' %}" style="color:#ffffff">投稿</a></button>
-</div></p>
+
 
 {% for post in posted_list %}
 <p>

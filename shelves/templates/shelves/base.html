@@ -19,15 +19,26 @@
         <li class="nav-item">
             <a class="nav-link" href="{% url 'shelves:index' %}">タイムライン</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'shelves:post_create' %}">投稿</a>
-        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">アカウント</a>
+            <div class="dropdown-menu">
+              {% if user.is_authenticated %}
+                <a class="dropdown-item" href="/shelves/profile/{{ user.username }}">プロフィール</a>
+                <a class="dropdown-item" href="/shelves/profile/{{ user.username }}/update">プロフィールの編集</a>
+                <a class="dropdown-item" href="{% url 'shelves:logout' %}">ログアウト</a>
+              {% else %}
+                <a class="dropdown-item" href="{% url 'shelves:login' %}">ログイン</a>
+                <a class="dropdown-item" href="{% url 'shelves:signup' %}">サインアップ</a>
+              {% endif %}
+            </div>
+          </li>
     </ul>
     {% block content %}
       {{ content }}
     {% endblock %}
   </div>
-
+<script src="{% static 'shelves/js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'shelves/js/bootstrap.bundle.min.js' %}"></script>
 {% block extra_js %}
 {% endblock %}
 </body>

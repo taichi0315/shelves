@@ -14,11 +14,4 @@
     {% endfor %}
 </div>
 
-<div class="float-right">
-    {% if object.username == user.username %}
-    　  <div><a href="{% url 'shelves:logout' %}">ログアウト</a></div>
-    <div><a href="{{ object.username }}/update">プロフィールの編集</a></div>
-    {% endif %}
-</div>
-
 {% endblock %}

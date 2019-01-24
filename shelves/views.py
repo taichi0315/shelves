@@ -42,7 +42,7 @@ class ProfileUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
     def get_success_url(self):
         return resolve_url('shelves:profile', pk=self.kwargs['pk'])
 
-class PostCreateView(generic.CreateView):
+class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
     form_class = PostCreateForm
     success_url = reverse_lazy('shelves:index')
     template_name = 'shelves/post_create.html'
