@@ -1,6 +1,6 @@
 Vue.component("cover", {
     props: ["init"],
-    template: '<img :src="info.data.items[0].volumeInfo.imageLinks.thumbnail">',
+    template: '<div><img :src="info"></div>',
     data: function(){
         return {
             info:null,
@@ -9,7 +9,7 @@ Vue.component("cover", {
     mounted() {
         axios
             .get('https://www.googleapis.com/books/v1/volumes?q='+this.init)
-            .then(response => {this.info = response})
+            .then(response => {this.info = response.data.items[0].volumeInfo.imageLinks.thumbnail})
     },
 });
 
