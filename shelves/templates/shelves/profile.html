@@ -3,14 +3,14 @@
 {% block content %}
 
 <p><div class="border border-muted rounded p-4">
-    <p><h4><div>{{ object.displayname }}@{{ object.username }}</div></h4></p>
+    <p><div>{{ object.displayname }}</div></p>
     <hr>
     <p><div>{{ object.profile.sentence}}</div></p>
 </div></p>
 
 <div class="d-flex flex-wrap justify-content-center">
     {% for post in object.post_set.all %}
-    <div class="p-3"><img src="{{ post.title.cover.url }}" /></div>
+    <div class="p-3"><img src="{{ post.cover_url }}" /></div>
     {% endfor %}
 </div>
 
