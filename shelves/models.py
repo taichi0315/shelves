@@ -5,25 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
 from annoying.fields import AutoOneToOneField
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFit, Transpose
-
-class Book(models.Model):
-    title = models.CharField(
-        primary_key=True,
-        verbose_name="タイトル",
-        max_length=30,
-    )
-    cover = ProcessedImageField(
-            verbose_name='表紙',
-            upload_to='cover',
-            processors=[Transpose(),ResizeToFit(height=300)],
-            format='JPEG',
-            options={'quality':60},
-            blank=True
-    )
-    def __str__(self):
-        return self.title
 
 class Post(models.Model):
     created_by = models.ForeignKey(
@@ -31,13 +12,9 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
 
-    title = models.ForeignKey(
-        Book,
-        verbose_name='タイトル',
-        max_length=256,
-        on_delete=models.PROTECT,
-    )
+    title = models.CharField('タイトル',max_length=256)
     comment = models.TextField('コメント',max_length=400)
+    cover_url = models.CharField('画像URL',max_length=256,blank=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
 class Profile(models.Model):

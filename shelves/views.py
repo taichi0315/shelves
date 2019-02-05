@@ -4,6 +4,7 @@ from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.contrib.auth import views, mixins
 from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm
+from .GoogleBooksAPI import get_thumbnail_url
 
 class IndexView(generic.ListView):
     template_name = 'shelves/index.html'
@@ -49,4 +50,5 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
 
     def form_valid(self, form):
         form.instance.created_by = self.request.user
+        form.instance.cover_url = get_thumbnail_url(form.instance.title)
         return super().form_valid(form)
