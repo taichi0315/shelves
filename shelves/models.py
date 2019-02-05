@@ -5,8 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.conf import settings
 from annoying.fields import AutoOneToOneField
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFit, Transpose
 
 class Post(models.Model):
     created_by = models.ForeignKey(
@@ -14,8 +12,9 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
 
-    title = models.CharField('タイトル', max_length=256)
+    title = models.CharField('タイトル',max_length=256)
     comment = models.TextField('コメント',max_length=400)
+    cover_url = models.CharField('画像URL',max_length=256,blank=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
 class Profile(models.Model):

@@ -42,6 +42,7 @@ class PostAdmin(admin.ModelAdmin):
         ('作成者',      {'fields': ('created_by',)}),
         ('タイトル',     {'fields': ('title',)}),
         ('コメント',     {'fields': ('comment',)}),
+        ('画像URL',     {'fields': ('cover_url',)}),
     )
 
 class ProfileAdmin(admin.ModelAdmin):

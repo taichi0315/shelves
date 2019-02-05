@@ -20,8 +20,6 @@ class ProfileUpdateForm(forms.ModelForm):
 
 class PostCreateForm(forms.ModelForm):
 
-    title = forms.CharField()
-
     class Meta:
         model = Post
-        fields = ("title","comment",)
+        fields = ("title","comment")
