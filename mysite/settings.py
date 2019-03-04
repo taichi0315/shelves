@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'imagekit',
     'annoying',
     'bootstrap4',
     'crispy_forms',

@@ -3,3 +3,4 @@ django-annoying==0.10.4
 django-bootstrap4==0.0.7
 django-crispy-forms==1.7.2
 pytz==2017.3
+requests==2.21.0
