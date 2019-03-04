@@ -8,9 +8,8 @@
         <p><div class="text-right">
             <button class="btn btn-primary"><a href="{% url 'shelves:post_create' %}" style="color:#ffffff">投稿</a></button>
         </div></p>
-        {% else %}
+    {% else %}
         <p><a href="{% url 'shelves:login' %}">ログイン</a>または<a href="{% url 'shelves:signup' %}">サインアップ</a></p>
-        {% endif %}
     {% endif %}
 </div></p>
 
