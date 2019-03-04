@@ -7,9 +7,6 @@ verify_ssl = true
 
 [packages]
 django = "==2.1.5"
-django-imagekit = "==4.0.2"
-pilkit = "==2.0"
-pillow = "==5.4.1"
 django-annoying = "==0.10.4"
 django-bootstrap4 = "==0.0.7"
 django-crispy-forms = "==1.7.2"
