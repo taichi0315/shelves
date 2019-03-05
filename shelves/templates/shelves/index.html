@@ -21,13 +21,12 @@
         <p><a href="profile/{{ post.created_by.username }}">{{ post.created_by.displayname }}</a>@{{ post.created_by.username }} {{ post.created_at | naturaltime}}</p>
         <div class="row">
             <div class="col-sm-3"><img src="{{ post.cover_url }}" /></div>
-            <div class="col-sm-8 text-wrap">{{ post.comment | linebreaksbr }}</div>
+            <div class="col-sm-8 text-wrap"><h6>評価：{{ post.rating }}</h5><br>{{ post.comment | linebreaksbr }}</div>
         </div>
     </div>
 </p>
 {% empty %}
 <p>投稿がありません</p>
 {% endfor %}
-
 
 {% endblock %}
