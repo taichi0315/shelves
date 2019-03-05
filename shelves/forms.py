@@ -23,3 +23,15 @@ class PostCreateForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ("title","comment","rating")
+
+        widgets = {
+            "rating": forms.NumberInput(
+                attrs={
+                    "type":"range",
+                    "step":"0.1",
+                    "min":"0.0",
+                    "max":"5.0",
+                    "v-model":"score",
+                }
+            )
+        }

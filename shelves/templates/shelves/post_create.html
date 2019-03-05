@@ -6,9 +6,23 @@
 
 <form method="post">
 {% csrf_token %}
-{{ form|crispy }}
+<div>
+{{ form.title|as_crispy_field }}
+</div>
+<div>
+{{ form.comment|as_crispy_field }}
+</div>
+<div id="app" class="container">
+    {{ form.rating.label_tag}}
+    <p class="h4">[[ score ]]</p>
+    {{ form.rating }}
+</div><br>
 
 <button class="btn btn-primary" type="submit">投稿</button>
 </form>
 
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'shelves/js/post_create.js' %}"></script>
 {% endblock %}
