@@ -14,6 +14,7 @@ class Post(models.Model):
 
     title = models.CharField('タイトル',max_length=256)
     comment = models.TextField('コメント',max_length=400)
+    rating = models.FloatField('評価')
     cover_url = models.CharField('画像URL',max_length=256,blank=True)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
