@@ -4,7 +4,7 @@ from .models import Post, AppUser, Profile, RecommendUser
 from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm
 from .GoogleBooksAPI import get_thumbnail_url
 from .recommendations import topMatches
 import numpy as np
@@ -99,3 +99,18 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
 class PostDetailView(generic.DetailView):
     template_name = 'shelves/post_detail.html'
     model = Post
+
+class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
+    raise_exception = False
+
+    model = Post
+    form_class = PostUpdateForm
+    template_name = 'shelves/post_update.html'
+
+    def test_func(self):
+        created_user = Post.objects.get(id=self.kwargs['pk']).created_by.username
+        user = self.request.user
+        return user.pk == created_user or user.is_superuser
+
+    def get_success_url(self):
+        return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
