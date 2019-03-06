@@ -18,20 +18,11 @@ class IndexView(generic.ListView):
 
 class RecommendUserView(generic.ListView):
     template_name = 'shelves/recommend_user.html'
-    context_object_name = 'user_list'
+    context_object_name = 'recommend_user_dict'
 
     def get_queryset(self):
-        #print(len(Post.objects.all()))
-        critics = {}
-        for person in AppUser.objects.all():
-            name = str(person.username)
-            critics[name] = {}
-            posts = Post.objects.filter(created_by=person)
-            for post in posts:
-                critics[name][post.title] = post.rating
-        #print(critics)
-        #print(LearningFrequency.objects.all())
-        return AppUser.objects.in_bulk(id_list=[self.request.user],field_name='username')
+        recommend_user = self.request.user.recommend_user_list.split(',')
+        return AppUser.objects.in_bulk(id_list=recommend_user,field_name='username')
 
 class LoginView(views.LoginView):
     form_class = LoginForm
@@ -88,7 +79,16 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
             new_learning = RecommendUser(critics=text, post_cnt_log=np.log(cnt))
             new_learning.save()
 
-            print(topMatches(prefs,'yaga'))
+            for person in AppUser.objects.all():
+                name = str(person.username)
+                rank = topMatches(prefs,name)
+                rank_str = ','.join(rank)
+
+                sim = AppUser.objects.get(username=name)
+                sim.recommend_user_list = rank_str
+                sim.save()
+
+            #print(topMatches(prefs,'yaga'))
 
         form.instance.created_by = self.request.user
         form.instance.cover_url = get_thumbnail_url(form.instance.title)

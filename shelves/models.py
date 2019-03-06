@@ -76,6 +76,8 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
 
+    recommend_user_list = models.TextField('おすすめユーザーリスト',default='')
+
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = AppUserManager()
     

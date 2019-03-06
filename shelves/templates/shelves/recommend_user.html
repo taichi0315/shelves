@@ -4,14 +4,14 @@
 
 {% block content %}
 
-{% for u in user_list %}
+{% for rec_user in recommend_user_dict.values %}
 <p>
     <div class="border border-muted rounded p-4">
-        <p>{{ u | linebreaksbr }}</p>
+        <p>{{ rec_user.displayname }}<a href="/shelves/profile/{{ rec_user.username }}">@{{ rec_user.username }}</a></p>
     </div>
 </p>
 {% empty %}
-<p>投稿がありません</p>
+<p>おすすめユーザーがいません</p>
 {% endfor %}
 
 {% endblock %}
