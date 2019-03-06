@@ -6,6 +6,11 @@ from django.utils import timezone
 from django.conf import settings
 from annoying.fields import AutoOneToOneField
 
+class RecommendUser(models.Model):
+    created_at = models.DateTimeField(_('created at'), auto_now_add=True)
+    critics = models.TextField('評価一覧')
+    post_cnt_log = models.FloatField('投稿数の対数')
+
 class Post(models.Model):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,

@@ -7,7 +7,7 @@
 {% for u in user_list %}
 <p>
     <div class="border border-muted rounded p-4">
-        <p>{{ u.username | linebreaksbr }}</p>
+        <p>{{ u | linebreaksbr }}</p>
     </div>
 </p>
 {% empty %}

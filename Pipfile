@@ -11,6 +11,7 @@ django-annoying = "==0.10.4"
 django-bootstrap4 = "==0.0.7"
 django-crispy-forms = "==1.7.2"
 requests = "==2.21.0"
+numpy = "*"
 
 [requires]
 python_version = "3.6"
