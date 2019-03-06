@@ -13,6 +13,11 @@ class IndexView(generic.ListView):
     def get_queryset(self):
         return Post.objects.order_by('-created_at')
 
+class RecommendUserView(generic.ListView):
+    template_name = 'shelves/recommend_user.html'
+    context_object_name = 'user_list'
+    model = AppUser
+
 class LoginView(views.LoginView):
     form_class = LoginForm
     template_name = 'shelves/login.html'

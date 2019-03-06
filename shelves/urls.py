@@ -10,4 +10,5 @@ urlpatterns = [
     path('profile/<str:pk>', views.ProfileView.as_view(), name='profile'),
     path('profile/<str:pk>/update/', views.ProfileUpdateView.as_view(), name='profile_update'),
     path('post/', views.PostCreateView.as_view(), name='post_create'),
+    path('recommend_user/', views.RecommendUserView.as_view(), name='recommend_user'),
 ]

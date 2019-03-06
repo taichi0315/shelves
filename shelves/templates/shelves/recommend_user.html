@@ -1,0 +1,17 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles%}
+{% load humanize %}
+
+{% block content %}
+
+{% for u in user_list %}
+<p>
+    <div class="border border-muted rounded p-4">
+        <p>{{ u.username | linebreaksbr }}</p>
+    </div>
+</p>
+{% empty %}
+<p>投稿がありません</p>
+{% endfor %}
+
+{% endblock %}
