@@ -7,6 +7,7 @@ from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm
 from .GoogleBooksAPI import get_thumbnail_url
 import numpy as np
 import json
+from .recommendations import topMatches
 
 class IndexView(generic.ListView):
     template_name = 'shelves/index.html'
@@ -86,7 +87,9 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
 
             new_learning = RecommendUser(critics=text, post_cnt_log=np.log(cnt))
             new_learning.save()
-            
+
+            print(topMatches(prefs,'yaga'))
+
         form.instance.created_by = self.request.user
         form.instance.cover_url = get_thumbnail_url(form.instance.title)
         return super().form_valid(form)
