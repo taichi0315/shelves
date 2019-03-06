@@ -4,7 +4,7 @@
 
 {% block content %}
 <p>
-    <div class="border border-muted rounded p-4">
+    <div class="border border-light rounded p-4">
         <p><h5>{{ object.title | linebreaksbr }}</h5></p>
         <p>{{ object.created_by.displayname }}<a href="{%url 'shelves:profile' object.created_by.username %}">@{{ object.created_by.username }}</a> {{ object.created_at | naturaltime}}</p>
         <div class="row">
