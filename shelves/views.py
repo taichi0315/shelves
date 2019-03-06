@@ -1,14 +1,14 @@
 from django.views import generic
+from django.db.models import Case, When
 from .models import Post, AppUser, Profile, RecommendUser
 from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.contrib.auth import views, mixins
 from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm
 from .GoogleBooksAPI import get_thumbnail_url
+from .recommendations import topMatches
 import numpy as np
 import json
-from .recommendations import topMatches
-from django.db.models import Case, When
 
 class IndexView(generic.ListView):
     template_name = 'shelves/index.html'
@@ -95,3 +95,7 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
         form.instance.created_by = self.request.user
         form.instance.cover_url = get_thumbnail_url(form.instance.title)
         return super().form_valid(form)
+    
+class PostDetailView(generic.DetailView):
+    template_name = 'shelves/post_detail.html'
+    model = Post

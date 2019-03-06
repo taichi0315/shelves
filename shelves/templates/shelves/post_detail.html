@@ -1,0 +1,17 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+<p>
+    <div class="border border-muted rounded p-4">
+        <p><h5>{{ object.title | linebreaksbr }}</h5></p>
+        <p>{{ object.created_by.displayname }}<a href="{%url 'shelves:profile' object.created_by.username %}">@{{ object.created_by.username }}</a> {{ object.created_at | naturaltime}}</p>
+        <div class="row">
+            <div class="col-sm-3"><img src="{{ object.cover_url }}" /></div>
+            <div class="col-sm-8 text-wrap"><h6>評価：{{ object.rating }}</h5><br>{{ object.comment | linebreaksbr }}</div>
+        </div>
+    </div>
+</p>
+
+{% endblock %}
