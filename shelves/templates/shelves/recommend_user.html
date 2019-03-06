@@ -8,6 +8,11 @@
 <p>
     <div class="border border-muted rounded p-4">
         <p>{{ rec_user.displayname }}<a href="/shelves/profile/{{ rec_user.username }}">@{{ rec_user.username }}</a></p>
+        <div class="d-flex flex-wrap justify-content-center">
+            {% for post in rec_user.post_set.all %}
+                <div class="p-3"><img src="{{ post.cover_url }}" height="100"/></div>
+            {% endfor %}
+        </div>
     </div>
 </p>
 {% empty %}
