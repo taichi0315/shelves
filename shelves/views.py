@@ -8,6 +8,7 @@ from .GoogleBooksAPI import get_thumbnail_url
 import numpy as np
 import json
 from .recommendations import topMatches
+from django.db.models import Case, When
 
 class IndexView(generic.ListView):
     template_name = 'shelves/index.html'
@@ -18,11 +19,12 @@ class IndexView(generic.ListView):
 
 class RecommendUserView(generic.ListView):
     template_name = 'shelves/recommend_user.html'
-    context_object_name = 'recommend_user_dict'
+    context_object_name = 'recommend_user_list'
 
     def get_queryset(self):
         recommend_user = self.request.user.recommend_user_list.split(',')
-        return AppUser.objects.in_bulk(id_list=recommend_user,field_name='username')
+        order = Case(*[When(pk=id, then=pos) for pos, id in enumerate(recommend_user)])
+        return AppUser.objects.filter(pk__in=recommend_user).order_by(order)
 
 class LoginView(views.LoginView):
     form_class = LoginForm
@@ -65,7 +67,7 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
         if cnt == 0:
             init_learning = RecommendUser(critics="init", post_cnt_log=num)
             init_learning.save()
-        elif np.log(cnt) - num >= 0.2:
+        elif np.log(cnt) - num >= 0.1:
             prefs = {}
             for person in AppUser.objects.all():
                 name = str(person.username)
@@ -74,6 +76,8 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
                 for post in posts:
                     prefs[name][post.title] = post.rating
             
+            prefs[str(self.request.user)][form.instance.title] = form.instance.rating
+
             text = json.dumps(prefs, ensure_ascii=False)
 
             new_learning = RecommendUser(critics=text, post_cnt_log=np.log(cnt))
@@ -87,8 +91,6 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
                 sim = AppUser.objects.get(username=name)
                 sim.recommend_user_list = rank_str
                 sim.save()
-
-            #print(topMatches(prefs,'yaga'))
 
         form.instance.created_by = self.request.user
         form.instance.cover_url = get_thumbnail_url(form.instance.title)

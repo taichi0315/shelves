@@ -4,7 +4,7 @@
 
 {% block content %}
 
-{% for rec_user in recommend_user_dict.values %}
+{% for rec_user in recommend_user_list %}
 <p>
     <div class="border border-muted rounded p-4">
         <p>{{ rec_user.displayname }}<a href="/shelves/profile/{{ rec_user.username }}">@{{ rec_user.username }}</a></p>
