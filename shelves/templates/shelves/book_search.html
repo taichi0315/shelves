@@ -1,0 +1,22 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+<div class="border border-light rounded p-4">
+<form>
+    <div class="form-group" id=app>
+        <label>本の名前：</label>
+        <input type="text" class="form-control" v-model="name">
+        <input type="button" v-on:click="getUrl()" name="" value="検索" class="btn btn-primary">
+        [[ books ]]
+    </div>
+</form>
+</div>
+
+<div id=app><cover init="数理最適化"></cover></div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'shelves/js/book_search.js' %}"></script>
+{% endblock %}

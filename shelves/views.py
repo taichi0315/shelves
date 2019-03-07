@@ -114,3 +114,6 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
+
+class BookSearchView(generic.TemplateView):
+    template_name = 'shelves/book_search.html'
