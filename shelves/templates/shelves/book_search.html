@@ -2,18 +2,19 @@
 {% load staticfiles %}
 
 {% block content %}
-<div class="border border-light rounded p-4">
-<form>
-    <div class="form-group" id=app>
-        <label>本の名前：</label>
-        <input type="text" class="form-control" v-model="name">
-        <input type="button" v-on:click="getUrl()" name="" value="検索" class="btn btn-primary">
-        [[ books ]]
+<div id=app>
+    <form class="border border-muted rounded p-4">
+        <div class="form-group">
+            <label>本の名前：</label>
+            <input type="text" class="form-control" v-model="name"><br>
+            <input type="button" v-on:click="getUrl()" name="" value="検索" class="btn btn-primary float-right"><br>
+        </div>
+    </form>
+    <div v-for="book in books">
+        [[ book.volumeInfo.imageLinks ]]
     </div>
-</form>
-</div>
 
-<div id=app><cover init="数理最適化"></cover></div>
+</div>
 
 {% endblock %}
 
