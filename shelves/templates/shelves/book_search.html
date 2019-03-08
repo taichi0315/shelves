@@ -15,8 +15,9 @@
         <p>
             <div class="border border-light rounded p-4 h-50">
                 <p><h5>[[ book.volumeInfo.title ]]</h5></p>
-                <div class="row">
-                    <div class="col-sm-3"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
+                <div class="row align-items-center">
+                    <div class="col-sm-2 text-center" v-if="book.volumeInfo.imageLinks !== $0"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
+                    <div class="col-sm-2 text-center" v-else>No Image</div>
                     <div class="col-sm-8 text-wrap"><br>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item border-light">
