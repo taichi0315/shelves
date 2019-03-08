@@ -15,7 +15,7 @@ class IndexView(generic.ListView):
     context_object_name = 'posted_list'
 
     def get_queryset(self):
-        return Post.objects.order_by('-created_at')
+        return Post.objects.filter(public=True).order_by('-created_at')
 
 class RecommendUserView(generic.ListView):
     template_name = 'shelves/recommend_user.html'
@@ -94,6 +94,7 @@ class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
 
         form.instance.created_by = self.request.user
         form.instance.cover_url = get_thumbnail_url(form.instance.title)
+        form.instance.public = True
         return super().form_valid(form)
     
 class PostDetailView(generic.DetailView):
@@ -114,6 +115,10 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
+    
+    def form_valid(self, form):
+        form.instance.public = True
+        return super().form_valid(form) 
 
 class BookSearchView(generic.CreateView):
     template_name = 'shelves/book_search.html'

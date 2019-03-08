@@ -21,6 +21,7 @@ class Post(models.Model):
     comment = models.TextField('コメント',max_length=400)
     rating = models.FloatField('評価')
     cover_url = models.CharField('画像URL',max_length=256,blank=True)
+    public = models.BooleanField('公開', default=False)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
 class Profile(models.Model):
