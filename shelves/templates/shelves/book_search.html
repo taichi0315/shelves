@@ -6,21 +6,28 @@
 <div id=app>
     <form class="border border-light rounded p-4">
         <div class="form-group">
-            <label>キーワード：</label>
+            <label>キーワード（タイトル、著者など）：</label>
             <input type="text" class="form-control" v-model="name"><br>
             <input type="button" v-on:click="getUrl()" name="" value="検索" class="btn btn-primary float-right"><br>
         </div>
     </form>
     <div v-for="book in books">
         <p>
-            <div class="border border-muted rounded p-4 h-50">
+            <div class="border border-light rounded p-4 h-50">
                 <p><h5>[[ book.volumeInfo.title ]]</h5></p>
                 <div class="row">
                     <div class="col-sm-3"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
                     <div class="col-sm-8 text-wrap"><br>
-                        <div>著者：[[ book.volumeInfo.authors ]]</div><br>
-                        <div>出版社：[[ book.volumeInfo.publisher ]]</div><br>
-                        <div>出版日：[[ book.volumeInfo.publishedDate ]]</div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item border-light">
+                                <div>著者：</div>
+                                <ul class="list-group-horizontal">
+                                    <li v-for="author in book.volumeInfo.authors" class="list-group-item border-light">[[ author ]]</li>
+                                </ul>
+                            </li>
+                            <li class="list-group-item border-light">出版社：[[ book.volumeInfo.publisher ]]</li>
+                            <li class="list-group-item border-light">出版日：[[ book.volumeInfo.publishedDate ]]</li>
+                        </ul>
                     </div>
                 </div>
             </div>
