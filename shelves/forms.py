@@ -52,3 +52,16 @@ class PostUpdateForm(forms.ModelForm):
                 }
             )
         }
+
+class BookSearchPostCreateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ("title",)
+
+        widgets = {
+            "title": forms.HiddenInput(
+                attrs={
+                    "v-model":"book.volumeInfo.title",
+                }
+            )
+        }
