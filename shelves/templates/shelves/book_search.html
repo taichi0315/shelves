@@ -35,10 +35,6 @@
                 <form method="post">
                     {% csrf_token %}
                     {{ form }}
-                    {{ post.management_form }}
-                    {% for form in post.forms %}
-                    {{ form }}
-                    {% endfor %}
                     <button class="btn btn-primary" type="submit">記事を書く</button>
                 </form>
             </div>

@@ -23,11 +23,7 @@ class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title","created_by",)
-
-PostFormSet = forms.inlineformset_factory(
-    Book, Post, PostCreateForm,extra=1
-)
+        fields = ("title",)
 
 class PostUpdateForm(forms.ModelForm):
     class Meta:
@@ -45,3 +41,9 @@ class PostUpdateForm(forms.ModelForm):
                 }
             )
         }
+
+class BookCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Book
+        fields = ("title",)
