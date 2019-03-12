@@ -64,6 +64,7 @@ class BookAdmin(admin.ModelAdmin):
     fieldsets = (
         ('ID',      {'fields': ('book_id',)}),
         ('タイトル',      {'fields': ('title',)}),
+        ('画像URL',      {'fields': ('cover_url',)}),
     )
 
 admin.site.register(AppUser, AppUserAdmin)

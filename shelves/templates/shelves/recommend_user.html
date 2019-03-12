@@ -10,7 +10,7 @@
         <p>{{ rec_user.displayname }}<a href="{% url 'shelves:profile' rec_user.username %}">@{{ rec_user.username }}</a></p>
         <div class="d-flex flex-wrap justify-content-center">
             {% for post in rec_user.post_set.all|slice:":5" %}
-                <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.cover_url }}" height="100"/></a></div>
+                <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.Book.cover_url }}" height="100"/></a></div>
             {% endfor %}
         </div>
     </div>

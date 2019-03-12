@@ -56,47 +56,6 @@ class ProfileUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('shelves:profile', pk=self.kwargs['pk'])
-
-class PostCreateView(generic.CreateView, mixins.UserPassesTestMixin):
-    form_class = PostCreateForm
-    success_url = reverse_lazy('shelves:index')
-    template_name = 'shelves/post_create.html'
-
-    def form_valid(self, form):
-        cnt = Post.objects.count()
-        num =  0 if cnt == 0 else RecommendUser.objects.last().post_cnt_log
-        if cnt == 0:
-            init_learning = RecommendUser(critics="init", post_cnt_log=num)
-            init_learning.save()
-        elif np.log(cnt) - num >= 0.1:
-            prefs = {}
-            for person in AppUser.objects.all():
-                name = str(person.username)
-                prefs[name] = {}
-                posts = Post.objects.filter(created_by=person)
-                for post in posts:
-                    prefs[name][post.title] = post.rating
-            
-            prefs[str(self.request.user)][form.instance.title] = form.instance.rating
-
-            text = json.dumps(prefs, ensure_ascii=False)
-
-            new_learning = RecommendUser(critics=text, post_cnt_log=np.log(cnt))
-            new_learning.save()
-
-            for person in AppUser.objects.all():
-                name = str(person.username)
-                rank = topMatches(prefs,name)
-                rank_str = ','.join(rank)
-
-                sim = AppUser.objects.get(username=name)
-                sim.recommend_user_list = rank_str
-                sim.save()
-
-        form.instance.created_by = self.request.user
-        form.instance.cover_url = get_thumbnail_url(form.instance.title)
-        form.instance.public = True
-        return super().form_valid(form)
     
 class PostDetailView(generic.DetailView):
     template_name = 'shelves/post_detail.html'
@@ -118,21 +77,52 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
         return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
     
     def form_valid(self, form):
+        learning_cnt = RecommendUser.objects.count()
+        post_cnt = Post.objects.count()
+        num =  0 if learning_cnt == 0 else RecommendUser.objects.last().post_cnt_log
+        if learning_cnt == 0:
+            init_learning = RecommendUser(critics="init", post_cnt_log=num)
+            init_learning.save()
+        elif np.log(post_cnt) - num >= 0.1:
+            prefs = {}
+            for person in AppUser.objects.all():
+                name = str(person.username)
+                prefs[name] = {}
+                posts = Post.objects.filter(created_by=person)
+                for post in posts:
+                    prefs[name][post.title] = post.rating
+            
+            prefs[str(self.request.user)][form.instance.title] = form.instance.rating
+
+            text = json.dumps(prefs, ensure_ascii=False)
+
+            new_learning = RecommendUser(critics=text, post_cnt_log=np.log(post_cnt))
+            new_learning.save()
+
+            for person in AppUser.objects.all():
+                name = str(person.username)
+                rank = topMatches(prefs,name)
+                rank_str = ','.join(rank)
+
+                sim = AppUser.objects.get(username=name)
+                sim.recommend_user_list = rank_str
+                sim.save()
+
         form.instance.public = True
         return super().form_valid(form) 
 
 class BookSearchView(generic.CreateView):
     model = Book
     template_name = 'shelves/book_search.html'
-    success_url = reverse_lazy('shelves:index')
     form_class = BookCreateForm
 
+    def get_success_url(self):
+        return resolve_url('shelves:post_update', pk=self.new_post.pk)
+
     def form_valid(self, form):
-        print(form.instance.book_id)
-        #dic = json.loads(form.instance.book_id)
         self.object = form.save()
 
-        new_post = Post(Book=self.object, created_by=self.request.user)
-        new_post.save()
+        self.new_post = Post(Book=self.object, created_by=self.request.user)
+        self.new_post.save()
 
         return super().form_valid(form)

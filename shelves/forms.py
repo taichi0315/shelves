@@ -25,12 +25,10 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ("title",)
 
-
-
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ("rating","comment")
+        fields = ("title","rating","comment")
 
         widgets = {
             "rating": forms.NumberInput(
@@ -48,7 +46,7 @@ class BookCreateForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ("title","book_id",)
+        fields = ("title","book_id","cover_url")
 
         widgets = {
             "title": forms.HiddenInput(
@@ -59,6 +57,12 @@ class BookCreateForm(forms.ModelForm):
             "book_id": forms.HiddenInput(
                 attrs={
                     "v-model":"book.volumeInfo.industryIdentifiers[0].identifier",
+                }
+            ),
+            "cover_url": forms.HiddenInput(
+                attrs={
+                    "v-if":"book.volumeInfo.imageLinks !== $0",
+                    "v-model":"book.volumeInfo.imageLinks.thumbnail",
                 }
             ),
         }

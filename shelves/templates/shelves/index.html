@@ -4,11 +4,7 @@
 
 {% block content %}
 <p><div class="text-right">
-    {% if user.is_authenticated %}
-        <p><div class="text-right">
-            <button class="btn btn-primary"><a href="{% url 'shelves:post_create' %}" style="color:#ffffff">投稿</a></button>
-        </div></p>
-    {% else %}
+    {% if not user.is_authenticated %}
         <p><a href="{% url 'shelves:login' %}">ログイン</a>または<a href="{% url 'shelves:signup' %}">サインアップ</a></p>
     {% endif %}
 </div></p>
@@ -19,7 +15,7 @@
         <p><h5><a href="{% url 'shelves:post_detail' post.id%}">{{ post.title | linebreaksbr }}</a></h5></p>
         <p>{{ post.created_by.displayname }}<a href="{% url 'shelves:profile' post.created_by.username %}">@{{ post.created_by.username }}</a> {{ post.created_at | naturaltime}}</p>
         <div class="row">
-            <div class="col-sm-3"><img src="{{ post.cover_url }}" /></div>
+            <div class="col-sm-3"><img src="{{ post.Book.cover_url }}" /></div>
             <div class="col-sm-8 text-wrap"><h6>評価：{{ post.rating }}</h5><br>{{ post.comment | linebreaksbr }}</div>
         </div>
     </div>
