@@ -43,7 +43,7 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         primary_key=True
     )
-    sentence = models.TextField('プロフィール文',max_length=300)
+    sentence = models.TextField('プロフィール文',max_length=300, blank=True)
 
     def __str__(self):
         return self.username
