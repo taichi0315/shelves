@@ -12,6 +12,7 @@ class RecommendUser(models.Model):
     post_cnt_log = models.FloatField('投稿数の対数')
 
 class Book(models.Model):
+    book_id = models.CharField('ID',max_length=256, primary_key=True)
     title = models.CharField('タイトル',max_length=256)
 
     def __str__(self):

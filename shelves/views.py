@@ -128,6 +128,8 @@ class BookSearchView(generic.CreateView):
     form_class = BookCreateForm
 
     def form_valid(self, form):
+        print(form.instance.book_id)
+        #dic = json.loads(form.instance.book_id)
         self.object = form.save()
 
         new_post = Post(Book=self.object, created_by=self.request.user)

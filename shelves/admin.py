@@ -62,6 +62,7 @@ class RecommendUserAdmin(admin.ModelAdmin):
 
 class BookAdmin(admin.ModelAdmin):
     fieldsets = (
+        ('ID',      {'fields': ('book_id',)}),
         ('タイトル',      {'fields': ('title',)}),
     )
 

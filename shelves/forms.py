@@ -25,6 +25,8 @@ class PostCreateForm(forms.ModelForm):
         model = Post
         fields = ("title",)
 
+
+
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
@@ -46,4 +48,17 @@ class BookCreateForm(forms.ModelForm):
 
     class Meta:
         model = Book
-        fields = ("title",)
+        fields = ("title","book_id",)
+
+        widgets = {
+            "title": forms.HiddenInput(
+                attrs={
+                    "v-model":"book.volumeInfo.title",
+                }
+            ),
+            "book_id": forms.HiddenInput(
+                attrs={
+                    "v-model":"book.volumeInfo.industryIdentifiers[0].identifier",
+                }
+            ),
+        }

@@ -14,7 +14,7 @@
     </form>
     <div v-for="book in books">
         <p>
-            <div class="border border-light rounded p-4 h-50">
+            <div class="border border-light rounded p-4 h-50" v-if="book.volumeInfo.industryIdentifiers !== $0">
                 <p><h5>[[ book.volumeInfo.title ]]</h5></p>
                 <div class="row align-items-center">
                     <div class="col-sm-2 text-center" v-if="book.volumeInfo.imageLinks !== $0"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
