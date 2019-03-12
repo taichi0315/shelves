@@ -1,5 +1,5 @@
 from django import forms
-from .models import AppUser, Post, Profile
+from .models import AppUser, Post, Profile, Book
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 
 class LoginForm(AuthenticationForm):
@@ -18,23 +18,16 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ("sentence",)
 
+
 class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title","comment","rating")
+        fields = ("title","created_by",)
 
-        widgets = {
-            "rating": forms.NumberInput(
-                attrs={
-                    "type":"range",
-                    "step":"0.1",
-                    "min":"0.0",
-                    "max":"5.0",
-                    "v-model":"score",
-                }
-            )
-        }
+PostFormSet = forms.inlineformset_factory(
+    Book, Post, PostCreateForm,extra=1
+)
 
 class PostUpdateForm(forms.ModelForm):
     class Meta:
@@ -49,19 +42,6 @@ class PostUpdateForm(forms.ModelForm):
                     "min":"0.0",
                     "max":"5.0",
                     "v-model":"score",
-                }
-            )
-        }
-
-class BookSearchPostCreateForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ("title",)
-
-        widgets = {
-            "title": forms.HiddenInput(
-                attrs={
-                    "v-model":"book.volumeInfo.title",
                 }
             )
         }

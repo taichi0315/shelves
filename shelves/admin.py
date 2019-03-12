@@ -3,7 +3,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 from django.utils.translation import ugettext_lazy as _
 
-from .models import AppUser, Post, Profile, RecommendUser
+from .models import AppUser, Post, Profile, RecommendUser, Book
 
 class AppUserChangeForm(UserChangeForm):
     class Meta:
@@ -41,6 +41,8 @@ class AppUserAdmin(UserAdmin):
 class PostAdmin(admin.ModelAdmin):
     fieldsets = (
         ('作成者',      {'fields': ('created_by',)}),
+        ('本',          {'fields':('Book',)}),
+        ('評価',          {'fields':('rating',)}),
         ('タイトル',     {'fields': ('title',)}),
         ('コメント',     {'fields': ('comment',)}),
         ('画像URL',     {'fields': ('cover_url',)}),
@@ -58,7 +60,13 @@ class RecommendUserAdmin(admin.ModelAdmin):
         ('投稿数の対数',      {'fields': ('post_cnt_log',)}),
     )
 
+class BookAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('タイトル',      {'fields': ('title',)}),
+    )
+
 admin.site.register(AppUser, AppUserAdmin)
 admin.site.register(Post, PostAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(RecommendUser, RecommendUserAdmin)
+admin.site.register(Book, BookAdmin)

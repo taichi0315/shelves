@@ -11,15 +11,26 @@ class RecommendUser(models.Model):
     critics = models.TextField('評価一覧')
     post_cnt_log = models.FloatField('投稿数の対数')
 
+class Book(models.Model):
+    title = models.CharField('タイトル',max_length=256)
+
+    def __str__(self):
+        return self.title
+
 class Post(models.Model):
     created_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
 
-    title = models.CharField('タイトル',max_length=256)
-    comment = models.TextField('コメント',max_length=400)
-    rating = models.FloatField('評価')
+    Book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+    )
+
+    title = models.CharField('タイトル',max_length=256, blank=True)
+    comment = models.TextField('コメント',max_length=400, blank=True)
+    rating = models.FloatField('評価', blank=True, null=True)
     cover_url = models.CharField('画像URL',max_length=256,blank=True)
     public = models.BooleanField('公開', default=False)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
