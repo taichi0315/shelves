@@ -24,10 +24,12 @@ class RecommendUserView(generic.ListView):
     context_object_name = 'recommend_user_list'
 
     def get_queryset(self):
-        recommend_user = self.request.user.recommend_user_list.split(',')
-        order = Case(*[When(pk=id, then=pos) for pos, id in enumerate(recommend_user)])
-        return AppUser.objects.filter(pk__in=recommend_user).order_by(order)
-
+        if self.request.user.is_authenticated:
+            recommend_user = self.request.user.recommend_user_list.split(',')
+            order = Case(*[When(pk=id, then=pos) for pos, id in enumerate(recommend_user)])
+            return AppUser.objects.filter(pk__in=recommend_user).order_by(order)
+        else:
+            return []
 class LoginView(views.LoginView):
     form_class = LoginForm
     template_name = 'shelves/login.html'
@@ -123,7 +125,7 @@ class BookSearchView(generic.CreateView):
     def form_valid(self, form):
         self.object = form.save()
 
-        self.new_post = Post(Book=self.object, created_by=self.request.user)
+        self.new_post = Post(Book=self.object, created_by=self.request.user, title=self.object.title, rating=2.5)
         self.new_post.save()
 
         return super().form_valid(form)
@@ -131,7 +133,7 @@ class BookSearchView(generic.CreateView):
     def form_invalid(self, form):
         book = Book.objects.get(pk=form.instance.book_id)
 
-        self.new_post = Post(Book=book, created_by=self.request.user)
+        self.new_post = Post(Book=book, created_by=self.request.user, title=book.title, rating=2.5)
         self.new_post.save()
 
         return HttpResponseRedirect(self.get_success_url())
