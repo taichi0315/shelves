@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'annoying',
     'bootstrap4',
     'crispy_forms',
+    'betterforms',
     'shelves.apps.ShelvesConfig',
     'django.contrib.admin',
     'django.contrib.auth',

@@ -1,6 +1,7 @@
 from django import forms
 from .models import AppUser, Post, Profile, Book
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from betterforms.multiform import MultiModelForm
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
@@ -23,7 +24,7 @@ class PostCreateForm(forms.ModelForm):
 
     class Meta:
         model = Post
-        fields = ("title",)
+        fields = ("title","comment",)
 
 class PostUpdateForm(forms.ModelForm):
     class Meta:
@@ -43,17 +44,17 @@ class PostUpdateForm(forms.ModelForm):
         }
 
 class BookCreateForm(forms.ModelForm):
-    
+
     class Meta:
         model = Book
         fields = ("title","book_id","cover_url")
 
         widgets = {
-            "title": forms.HiddenInput(
-                attrs={
-                    "v-model":"book.volumeInfo.title",
-                }
-            ),
+            #"title": forms.HiddenInput(
+            #    attrs={
+            #        "v-model":"book.volumeInfo.title",
+            #    }
+            #),
             "book_id": forms.HiddenInput(
                 attrs={
                     "v-model":"book.volumeInfo.industryIdentifiers[0].identifier",
@@ -66,3 +67,21 @@ class BookCreateForm(forms.ModelForm):
                 }
             ),
         }
+
+class BookPostMultiForm(MultiModelForm):
+    form_classes = {
+        'post': PostCreateForm,
+        'book': BookCreateForm,
+    }
+
+    def save(self, commit=True):
+        objects = super(BookCreateForm, self).save(commit=False)
+
+        if commit:
+            book = objects['book']
+            book.save()
+            post = objects['post']
+            post.Book = book
+            post.save()
+
+        return objects

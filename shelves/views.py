@@ -5,7 +5,7 @@ from .models import Post, AppUser, Profile, RecommendUser, Book
 from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm, BookCreateForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm, BookCreateForm, BookPostMultiForm
 from .GoogleBooksAPI import get_thumbnail_url
 from .recommendations import topMatches
 import numpy as np
@@ -109,20 +109,15 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
                 sim.save()
 
         form.instance.public = True
-        return super().form_valid(form) 
+        return super().form_valid(form)
 
 class BookSearchView(generic.CreateView):
-    model = Book
     template_name = 'shelves/book_search.html'
-    form_class = BookCreateForm
+    form_class = BookPostMultiForm
 
     def get_success_url(self):
-        return resolve_url('shelves:post_update', pk=self.new_post.pk)
+        return resolve_url('shelves:index')
 
     def form_valid(self, form):
-        self.object = form.save()
-
-        self.new_post = Post(Book=self.object, created_by=self.request.user)
-        self.new_post.save()
-
+        form["post"].instance.created_by = self.request.user
         return super().form_valid(form)

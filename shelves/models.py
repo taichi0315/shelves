@@ -12,7 +12,7 @@ class RecommendUser(models.Model):
     post_cnt_log = models.FloatField('投稿数の対数')
 
 class Book(models.Model):
-    book_id = models.CharField('ID',max_length=256, primary_key=True)
+    book_id = models.CharField('ID',max_length=256, primary_key=True, unique=True)
     title = models.CharField('タイトル',max_length=256)
     cover_url = models.CharField('画像URL',max_length=256,blank=True)
 
