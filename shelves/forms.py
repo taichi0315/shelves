@@ -43,7 +43,7 @@ class PostUpdateForm(forms.ModelForm):
         }
 
 class BookCreateForm(forms.ModelForm):
-
+    
     class Meta:
         model = Book
         fields = ("title","book_id","cover_url")
