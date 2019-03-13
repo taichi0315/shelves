@@ -50,11 +50,11 @@ class BookCreateForm(forms.ModelForm):
         fields = ("title","book_id","cover_url")
 
         widgets = {
-            #"title": forms.HiddenInput(
-            #    attrs={
-            #        "v-model":"book.volumeInfo.title",
-            #    }
-            #),
+            "title": forms.HiddenInput(
+                attrs={
+                    "v-model":"book.volumeInfo.title",
+                }
+            ),
             "book_id": forms.HiddenInput(
                 attrs={
                     "v-model":"book.volumeInfo.industryIdentifiers[0].identifier",
@@ -67,21 +67,3 @@ class BookCreateForm(forms.ModelForm):
                 }
             ),
         }
-
-class BookPostMultiForm(MultiModelForm):
-    form_classes = {
-        'post': PostCreateForm,
-        'book': BookCreateForm,
-    }
-
-    def save(self, commit=True):
-        objects = super(BookCreateForm, self).save(commit=False)
-
-        if commit:
-            book = objects['book']
-            book.save()
-            post = objects['post']
-            post.Book = book
-            post.save()
-
-        return objects

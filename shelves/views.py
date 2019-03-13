@@ -4,8 +4,9 @@ from django.db import transaction
 from .models import Post, AppUser, Profile, RecommendUser, Book
 from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
+from django.http import HttpResponseRedirect
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm, BookCreateForm, BookPostMultiForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm, BookCreateForm
 from .GoogleBooksAPI import get_thumbnail_url
 from .recommendations import topMatches
 import numpy as np
@@ -56,7 +57,7 @@ class ProfileUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('shelves:profile', pk=self.kwargs['pk'])
-    
+
 class PostDetailView(generic.DetailView):
     template_name = 'shelves/post_detail.html'
     model = Post
@@ -75,7 +76,7 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
 
     def get_success_url(self):
         return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
-    
+
     def form_valid(self, form):
         learning_cnt = RecommendUser.objects.count()
         post_cnt = Post.objects.count()
@@ -91,7 +92,7 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
                 posts = Post.objects.filter(created_by=person)
                 for post in posts:
                     prefs[name][post.title] = post.rating
-            
+
             prefs[str(self.request.user)][form.instance.title] = form.instance.rating
 
             text = json.dumps(prefs, ensure_ascii=False)
@@ -112,12 +113,25 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
         return super().form_valid(form)
 
 class BookSearchView(generic.CreateView):
+    model = Book
     template_name = 'shelves/book_search.html'
-    form_class = BookPostMultiForm
+    form_class = BookCreateForm
 
     def get_success_url(self):
-        return resolve_url('shelves:index')
+        return resolve_url('shelves:post_update', pk=self.new_post.pk)
 
     def form_valid(self, form):
-        form["post"].instance.created_by = self.request.user
+        self.object = form.save()
+
+        self.new_post = Post(Book=self.object, created_by=self.request.user)
+        self.new_post.save()
+
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        book = Book.objects.get(pk=form.instance.book_id)
+
+        self.new_post = Post(Book=book, created_by=self.request.user)
+        self.new_post.save()
+
+        return HttpResponseRedirect(self.get_success_url())

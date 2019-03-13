@@ -45,7 +45,7 @@ class PostAdmin(admin.ModelAdmin):
         ('評価',          {'fields':('rating',)}),
         ('タイトル',     {'fields': ('title',)}),
         ('コメント',     {'fields': ('comment',)}),
-        ('画像URL',     {'fields': ('cover_url',)}),
+        ('公開',     {'fields': ('public',)}),
     )
 
 class ProfileAdmin(admin.ModelAdmin):
