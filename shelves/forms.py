@@ -1,7 +1,6 @@
 from django import forms
 from .models import AppUser, Post, Profile, Book
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from betterforms.multiform import MultiModelForm
 
 class LoginForm(AuthenticationForm):
     def __init__(self, *args, **kwargs):
