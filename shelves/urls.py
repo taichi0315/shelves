@@ -13,4 +13,5 @@ urlpatterns = [
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
     path('recommend_user/', views.RecommendUserView.as_view(), name='recommend_user'),
     path('book_search/', views.BookSearchView.as_view(), name='book_search'),
+    path('book/<str:pk>', views.BookDetailView.as_view(), name='book_detail'),
 ]

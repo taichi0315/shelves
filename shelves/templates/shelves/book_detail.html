@@ -1,0 +1,43 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles %}
+{% load humanize %}
+
+{% block content %}
+<div class="border border-light rounded p-4 h-50">
+    <p><h5>{{ object.title }}</h5></p>
+    <div class="row align-items-center">
+        <div class="col-sm-2 text-center"><img src="{{ object.cover_url }}"></div>
+        <div class="col-sm-8 text-wrap"><br>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item border-light">
+                    <div>著者：</div>
+                    <ul class="list-group-horizontal">
+                        <li class="list-group-item border-light"></li>
+                    </ul>
+                </li>
+                <li class="list-group-item border-light">出版社：</li>
+                <li class="list-group-item border-light">出版日：</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<p>
+<div class="h4 text-center">投稿一覧</div>
+<div class="d-flex flex-wrap justify-content-center">
+    <ul class="list-group list-group-flush">
+    {% for post in object.post_set.all %}
+    <li class="list-group-item border-light">
+        <div class="border border-light rounded p-4">
+            <a href="{% url 'shelves:post_detail' post.id%}">
+            <div>{{ post.created_by.displayname }}@{{ post.created_by.username }}</div>
+            <div>評価：{{ post.rating }}</div>
+            </a>
+        </div>
+    </li>
+    {% endfor %}
+    </ul>
+</div>
+</p>
+
+{% endblock %}

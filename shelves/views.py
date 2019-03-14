@@ -137,3 +137,7 @@ class BookSearchView(generic.CreateView):
         self.new_post.save()
 
         return HttpResponseRedirect(self.get_success_url())
+    
+class BookDetailView(generic.DetailView):
+    model = Book
+    template_name = 'shelves/book_detail.html'
