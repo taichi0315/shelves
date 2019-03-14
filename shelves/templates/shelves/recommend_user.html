@@ -6,7 +6,7 @@
 
 {% for rec_user in recommend_user_list %}
 <p>
-    <div class="border border-muted rounded p-4">
+    <div class="border border-light rounded p-4">
         <p>{{ rec_user.displayname }}<a href="{% url 'shelves:profile' rec_user.username %}">@{{ rec_user.username }}</a></p>
         <div class="d-flex flex-wrap justify-content-center">
             {% for post in rec_user.post_set.all|slice:":5" %}

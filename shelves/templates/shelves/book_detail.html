@@ -9,11 +9,12 @@
 </div>
 
 <div class="p-5 m-5 h4 text-center">投稿一覧</div>
-<div class="d-inline-flex flex-wrap justify-content-strech">
+<div class="d-flex flex-wrap justify-content-strech">
     {% for post in object.post_set.all %}
-        <div class="card w-25">
-            <div class="h5 m-5">{{ post.created_by.displayname }}</div>
-            <div class="text-truncate text-justify-center card-text m-4">{{ post.comment | linebreaksbr}}</div>
+        <div class="card w-25 p-4">
+            <div class="h5 mb-2">{{ post.created_by.displayname }}</div>
+            <div class="h4 text-warning">{{ post.rating }}</div>
+            <div class="text-truncate text-justify-center card-text mb-4">{{ post.comment | linebreaksbr}}</div>
             <div><a href="{% url 'shelves:post_detail' post.id%}">詳しく読む</a></div>
         </div>
     {% endfor %}
