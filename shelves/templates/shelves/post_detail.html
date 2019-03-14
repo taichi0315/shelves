@@ -13,11 +13,9 @@
 </div>
 
 {% if user.username == object.created_by.username %}
-<p>
-    <div class="float-right">
-        <h5><a href="{% url 'shelves:post_update' object.id %}">編集</a></h5>
-    </div>
-</p>
+<div class="float-right">
+    <a href="{% url 'shelves:post_update' object.id %}">編集</a>
+</div>
 {% endif %}
 
 {% endblock %}

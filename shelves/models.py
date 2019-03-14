@@ -31,7 +31,7 @@ class Post(models.Model):
     )
 
     title = models.CharField('記事タイトル',max_length=256, blank=True)
-    comment = models.TextField('コメント',max_length=400, blank=True)
+    comment = models.TextField('コメント', blank=True)
     rating = models.FloatField('評価',default=2.5)
     public = models.BooleanField('公開', default=False)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)

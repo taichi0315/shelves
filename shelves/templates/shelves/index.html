@@ -10,18 +10,18 @@
 </div></p>
 
 {% for post in posted_list %}
-<div class="p-3">
-    <div class="border border-muted rounded p-5">
+<div class="p-2">
+    <div class="border border-light rounded p-5">
         <div class="h4">{{ post.title | linebreaksbr }}</div>
         <p>{{ post.created_by.displayname }}<a href="{% url 'shelves:profile' post.created_by.username %}">@{{ post.created_by.username }}</a> {{ post.created_at | naturaltime}}</p>
         <div class="row">
             <div class="col-sm-3"><a href="{% url 'shelves:book_detail' post.Book.pk %}"><img src="{{ post.Book.cover_url }}" /></a></div>
-            <div class="col-sm-8 text-wrap">
+            <div class="col-sm-8">
                 評価：<div class="mb-4 text-warning h4">{{ post.rating }}</div>
-                <div class="text-truncate">{{ post.comment | linebreaksbr }}</div>
+                <div class="text-truncate h-50">{{ post.comment | linebreaksbr }}</div>
             </div>
         </div>
-        <div class="text-right"><a href="{% url 'shelves:post_detail' post.id%}">詳しく見る</a></div>
+        <div class="text-right"><a href="{% url 'shelves:post_detail' post.id%}">詳しく読む</a></div>
     </div>
 </div>
 {% empty %}

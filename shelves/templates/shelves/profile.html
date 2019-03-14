@@ -2,14 +2,16 @@
 {% load staticfiles %}
 {% block content %}
 
-<div class="border border-light rounded p-4 m-2">
+<div class="border border-light rounded p-4">
     <div class="h5">{{ object.displayname }}</div>
-    <p><div>{{ object.profile.sentence}}</div></p>
+    <div class="p-4">{{ object.profile.sentence}}</div>
 </div>
 
 <div class="d-flex flex-wrap justify-content-center">
     {% for post in object.post_set.all %}
-        <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.Book.cover_url }}" height="150"/></a></div>
+        {% if post.public == True %}
+            <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.Book.cover_url }}" height="150"/></a></div>
+        {% endif %}
     {% endfor %}
 </div>
 

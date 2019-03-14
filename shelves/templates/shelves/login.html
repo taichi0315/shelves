@@ -3,12 +3,16 @@
 
 {% block content %}
 
+<div class="p-4">
+
 <form method="post">
 
 {% csrf_token %}
 {{ form|crispy }}
 
-<button class="btn btn-primary" type="submit">ログイン</button>
+<button class="btn btn-primary float-right" type="submit">ログイン</button>
 </form>
+
+</div>
 
 {% endblock %}

@@ -4,6 +4,8 @@
 
 {% block content %}
 
+<div class="p-4">
+
 <form method="post">
 {% csrf_token %}
 <div>
@@ -12,12 +14,14 @@
 </div>
 <div id="rating" class="container">
     {{ form.rating.label_tag}}
-    <p class="h4">[[ score ]]</p>
+    <div class="h4 text-warning">[[ score ]]</div>
     {{ form.rating }}
 </div><br>
 
-<button class="btn btn-primary" type="submit">投稿</button>
+<button class="btn btn-primary float-right" type="submit">投稿</button>
 </form>
+
+</div>
 
 {% endblock %}
 

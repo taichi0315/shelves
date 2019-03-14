@@ -6,7 +6,7 @@ from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.http import HttpResponseRedirect
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostCreateForm, PostUpdateForm, BookCreateForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostUpdateForm, BookCreateForm
 from .GoogleBooksAPI import get_thumbnail_url
 from .recommendations import topMatches
 import numpy as np
@@ -137,7 +137,7 @@ class BookSearchView(generic.CreateView):
         self.new_post.save()
 
         return HttpResponseRedirect(self.get_success_url())
-    
+
 class BookDetailView(generic.DetailView):
     model = Book
     template_name = 'shelves/book_detail.html'

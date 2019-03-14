@@ -13,32 +13,30 @@
         </div>
     </form>
     <div v-for="book in books">
-        <p>
-            <div class="border border-light rounded p-4 h-50" v-if="book.volumeInfo.industryIdentifiers !== $0">
-                <p><h5>[[ book.volumeInfo.title ]]</h5></p>
-                <div class="row align-items-center">
-                    <div class="col-sm-2 text-center" v-if="book.volumeInfo.imageLinks !== $0"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
-                    <div class="col-sm-2 text-center" v-else>No Image</div>
-                    <div class="col-sm-8 text-wrap"><br>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item border-light">
-                                <div>著者：</div>
-                                <ul class="list-group-horizontal">
-                                    <li v-for="author in book.volumeInfo.authors" class="list-group-item border-light">[[ author ]]</li>
-                                </ul>
-                            </li>
-                            <li class="list-group-item border-light">出版社：[[ book.volumeInfo.publisher ]]</li>
-                            <li class="list-group-item border-light">出版日：[[ book.volumeInfo.publishedDate ]]</li>
-                        </ul>
-                    </div>
+        <div class="border border-light rounded p-5" v-if="book.volumeInfo.industryIdentifiers !== $0">
+            <div class="p-2 h5">[[ book.volumeInfo.title ]]</div>
+            <div class="row align-items-center">
+                <div class="col-sm-2 text-center" v-if="book.volumeInfo.imageLinks !== $0"><img :src="book.volumeInfo.imageLinks.thumbnail"></div>
+                <div class="col-sm-2 text-center" v-else>No Image</div>
+                <div class="col-sm-8 text-wrap"><br>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item border-light">
+                            <div>著者：</div>
+                            <ul class="list-group-horizontal">
+                                <li v-for="author in book.volumeInfo.authors" class="list-group-item border-light">[[ author ]]</li>
+                            </ul>
+                        </li>
+                        <li class="list-group-item border-light">出版社：[[ book.volumeInfo.publisher ]]</li>
+                        <li class="list-group-item border-light">出版日：[[ book.volumeInfo.publishedDate ]]</li>
+                    </ul>
                 </div>
-                <form method="post">
-                    {% csrf_token %}
-                    {{ form }}
-                    <button class="btn btn-primary" type="submit">記事を書く</button>
-                </form>
             </div>
-        </p>
+            <form method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button class="btn btn-primary float-right" type="submit">記事を書く</button>
+            </form>
+        </div>
     </div>
 
 </div>

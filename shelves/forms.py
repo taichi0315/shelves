@@ -18,13 +18,6 @@ class ProfileUpdateForm(forms.ModelForm):
         model = Profile
         fields = ("sentence",)
 
-
-class PostCreateForm(forms.ModelForm):
-
-    class Meta:
-        model = Post
-        fields = ("title","comment",)
-
 class PostUpdateForm(forms.ModelForm):
     class Meta:
         model = Post
