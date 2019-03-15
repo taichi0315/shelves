@@ -4,12 +4,12 @@
 
 {% block content %}
 
-<div class="border border-light rounded p-5 text-center">
+<div class="border border-light rounded mt-5 text-center">
     <div class="h2 m-3">{{ object.title }}</div>
     <div class="m-4">{{ object.created_by.displayname }}<a href="{% url 'shelves:profile' post.created_by.username %}">@{{ object.created_by.username }}</a></div>
     <div class="m-2">{{ object.created_at.year }} 年 {{ object.created_at.month }} 月 {{ object.created_at.day }} 日 {{ object.created_at.hour }} 時 {{ object.created_at.minute }} 分</div>
     <div class="m-4"><a href="{% url 'shelves:book_detail' object.Book.pk %}"><img src="{{ object.Book.cover_url }}" ></a></div>
-    <div class="p-4 text-justify-center text-wrap">{{ object.comment | linebreaksbr}}</div>
+    <div class="p-4 text-wrap text-left">{{ object.comment | linebreaksbr}}</div>
 </div>
 
 {% if user.username == object.created_by.username %}

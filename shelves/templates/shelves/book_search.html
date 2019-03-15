@@ -12,6 +12,11 @@
             <input type="button" v-on:click="getUrl()" name="" value="検索" class="btn btn-primary float-right"><br>
         </div>
     </form>
+    <div>
+        {% if not user.is_authenticated %}
+        投稿には<a href="{% url 'shelves:login' %}">ログイン</a>が必要です
+        {% endif %}
+    </div>
     <div v-for="book in books">
         <div class="border border-light rounded p-5" v-if="book.volumeInfo.industryIdentifiers !== $0">
             <div class="p-2 h5">[[ book.volumeInfo.title ]]</div>
@@ -31,11 +36,13 @@
                     </ul>
                 </div>
             </div>
+            {% if user.is_authenticated %}
             <form method="post">
                 {% csrf_token %}
                 {{ form }}
                 <button class="btn btn-primary float-right" type="submit">記事を書く</button>
             </form>
+            {% endif %}
         </div>
     </div>
 
