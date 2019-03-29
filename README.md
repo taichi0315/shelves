@@ -15,3 +15,9 @@ Webサービスの公開URLは[こちら](http://shelves.yaga.tokyo/)
 - 投稿のCRUD(djangoのdefaultパッケージであるgenericを使用)
 - GoogleBooksAPIを用いた書籍情報の取得（axiosでAPIから情報を取得）
 - おすすめユーザー推薦機能（ピアソン相関係数を用いた簡単なユーザー推薦）
+
+## テストユーザー
+以下のユーザーネームとパスワードでテストユーザーとしてログインすることができます。
+
+username: toby  
+passward: testuser
