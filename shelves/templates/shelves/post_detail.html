@@ -10,12 +10,10 @@
     <div class="m-2">{{ object.created_at.year }} 年 {{ object.created_at.month }} 月 {{ object.created_at.day }} 日 {{ object.created_at.hour }} 時 {{ object.created_at.minute }} 分</div>
     <div class="m-4"><a href="{% url 'shelves:book_detail' object.item.pk %}"><img src="{{ object.item.cover_url }}" ></a></div>
     <div class="p-4 text-wrap text-left">{{ object.comment | linebreaksbr}}</div>
+    {% if user.username == object.created_by.username %}
+        <div><a href="{% url 'shelves:post_update' object.id %}">編集</a></div>
+        <div><a href="{% url 'shelves:post_delete' object.id %}">削除</a></div>
+    {% endif %}
 </div>
-
-{% if user.username == object.created_by.username %}
-<div class="float-right">
-    <a href="{% url 'shelves:post_update' object.id %}">編集</a>
-</div>
-{% endif %}
 
 {% endblock %}
