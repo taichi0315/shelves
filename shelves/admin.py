@@ -22,7 +22,6 @@ class AppUserAdmin(UserAdmin):
         (_('displayname'),      {'fields':('displayname',)}),
         (_('Permissions'),{'fields':('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}),
         (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
-        (_('おすすめユーザーリスト'), {'fields': ('recommend_user_list',)}),
     )
     add_fieldsets = (
         (None, {
@@ -41,7 +40,7 @@ class AppUserAdmin(UserAdmin):
 class PostAdmin(admin.ModelAdmin):
     fieldsets = (
         ('作成者',      {'fields': ('created_by',)}),
-        ('本',          {'fields':('Book',)}),
+        ('本',          {'fields':('item',)}),
         ('評価',          {'fields':('rating',)}),
         ('タイトル',     {'fields': ('title',)}),
         ('コメント',     {'fields': ('comment',)}),

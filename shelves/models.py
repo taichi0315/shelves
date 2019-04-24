@@ -25,7 +25,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
 
-    Book = models.ForeignKey(
+    item = models.ForeignKey(
         Book,
         on_delete=models.CASCADE,
     )
@@ -88,8 +88,6 @@ class AppUser(AbstractBaseUser, PermissionsMixin):
             'Unselect this instead of deleting accounts.'
         ),
     )
-
-    recommend_user_list = models.TextField('おすすめユーザーリスト',default=',')
 
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     objects = AppUserManager()

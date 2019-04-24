@@ -15,7 +15,7 @@
         <div class="h4">{{ post.title | linebreaksbr }}</div>
         <p>{{ post.created_by.displayname }}<a href="{% url 'shelves:profile' post.created_by.username %}">@{{ post.created_by.username }}</a> {{ post.created_at | naturaltime}}</p>
         <div class="row">
-            <div class="col-sm-3"><a href="{% url 'shelves:book_detail' post.Book.pk %}"><img src="{{ post.Book.cover_url }}" /></a></div>
+            <div class="col-sm-3"><a href="{% url 'shelves:book_detail' post.item.pk %}"><img src="{{ post.item.cover_url }}" /></a></div>
             <div class="col-sm-8">
                 評価：<div class="mb-4 text-warning h4">{{ post.rating }}</div>
                 <div class="text-truncate h-50">{{ post.comment | linebreaksbr }}</div>

@@ -7,8 +7,8 @@ from django.shortcuts import resolve_url
 from django.http import HttpResponseRedirect
 from django.contrib.auth import views, mixins
 from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostUpdateForm, BookCreateForm
-from .GoogleBooksAPI import get_thumbnail_url
-from .recommendations import topMatches
+from .api.GoogleBooksAPI import get_thumbnail_url
+from .recommendations.rating import recommend_user
 import numpy as np
 import json
 
@@ -25,11 +25,10 @@ class RecommendUserView(generic.ListView):
 
     def get_queryset(self):
         if self.request.user.is_authenticated:
-            recommend_user = self.request.user.recommend_user_list.split(',')
-            order = Case(*[When(pk=id, then=pos) for pos, id in enumerate(recommend_user)])
-            return AppUser.objects.filter(pk__in=recommend_user).order_by(order)
+            return recommend_user(self.request.user)
         else:
             return []
+
 class LoginView(views.LoginView):
     form_class = LoginForm
     template_name = 'shelves/login.html'

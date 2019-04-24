@@ -9,9 +9,9 @@
 <div class="border border-light rounded p-5">
     <div class="text-center">{{ rec_user.displayname }}<a href="{% url 'shelves:profile' rec_user.username %}">@{{ rec_user.username }}</a></div>
     <div class="d-flex flex-wrap justify-content-center">
-        {% for post in rec_user.post_set.all|slice:":5" %}
+        {% for post in rec_user.post_set.all %}
             {% if post.public == True %}
-                <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.Book.cover_url }}" height="100"/></a></div>
+                <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.item.cover_url }}" height="100"/></a></div>
             {% endif %}
         {% endfor %}
     </div>
