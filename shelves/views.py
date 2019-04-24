@@ -79,37 +79,6 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
         return resolve_url('shelves:post_detail', pk=self.kwargs['pk'])
 
     def form_valid(self, form):
-        learning_cnt = RecommendUser.objects.count()
-        post_cnt = Post.objects.count()
-        num =  0 if learning_cnt == 0 else RecommendUser.objects.last().post_cnt_log
-        if learning_cnt == 0:
-            init_learning = RecommendUser(critics="init", post_cnt_log=num)
-            init_learning.save()
-        elif np.log(post_cnt) - num >= 0.1:
-            prefs = {}
-            for person in AppUser.objects.all():
-                name = str(person.username)
-                prefs[name] = {}
-                posts = Post.objects.filter(created_by=person)
-                for post in posts:
-                    prefs[name][post.title] = post.rating
-
-            prefs[str(self.request.user)][form.instance.title] = form.instance.rating
-
-            text = json.dumps(prefs, ensure_ascii=False)
-
-            new_learning = RecommendUser(critics=text, post_cnt_log=np.log(post_cnt))
-            new_learning.save()
-
-            for person in AppUser.objects.all():
-                name = str(person.username)
-                rank = topMatches(prefs,name)
-                rank_str = ','.join(rank)
-
-                sim = AppUser.objects.get(username=name)
-                sim.recommend_user_list = rank_str
-                sim.save()
-
         form.instance.public = True
         return super().form_valid(form)
 
@@ -132,7 +101,7 @@ class BookSearchView(generic.CreateView):
     def form_invalid(self, form):
         book = Book.objects.get(pk=form.instance.book_id)
 
-        self.new_post = Post(Book=book, created_by=self.request.user, title=book.title, rating=2.5)
+        self.new_post = Post(item=book, created_by=self.request.user, title=book.title, rating=2.5)
         self.new_post.save()
 
         return HttpResponseRedirect(self.get_success_url())

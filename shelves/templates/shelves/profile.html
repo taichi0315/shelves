@@ -10,7 +10,7 @@
 <div class="d-flex flex-wrap justify-content-center">
     {% for post in object.post_set.all %}
         {% if post.public == True %}
-            <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.Book.cover_url }}" height="150"/></a></div>
+            <div class="p-3"><a href="{% url 'shelves:post_detail' post.id%}"><img src="{{ post.item.cover_url }}" height="150"/></a></div>
         {% endif %}
     {% endfor %}
 </div>
