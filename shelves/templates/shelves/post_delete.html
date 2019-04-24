@@ -1,0 +1,16 @@
+{% extends "shelves/base.html" %}
+{% load staticfiles%}
+
+{% block content %}
+<div class="border border-light rounded mt-5 text-center">
+<div class="row">
+    <div class="col-12">
+    <p>{{ object }} を削除していいですか?</p>
+    <form method=post>
+        <button class="btn btn-danger">削除する</button>
+        {% csrf_token %}
+    </form>
+    </div>
+</div>
+</div>
+{% endblock %}

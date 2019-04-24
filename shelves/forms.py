@@ -34,6 +34,10 @@ class PostUpdateForm(forms.ModelForm):
                 }
             )
         }
+class PostDeleteForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ()
 
 class BookCreateForm(forms.ModelForm):
 

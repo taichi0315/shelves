@@ -6,7 +6,7 @@ from django.urls import path, reverse_lazy
 from django.shortcuts import resolve_url
 from django.http import HttpResponseRedirect
 from django.contrib.auth import views, mixins
-from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostUpdateForm, BookCreateForm
+from .forms import LoginForm, SignUpForm, ProfileUpdateForm, PostUpdateForm, PostDeleteForm, BookCreateForm
 from .api.GoogleBooksAPI import get_thumbnail_url
 from .recommendations.rating import recommend_user
 import numpy as np
@@ -81,6 +81,17 @@ class PostUpdateView(mixins.UserPassesTestMixin, generic.UpdateView):
     def form_valid(self, form):
         form.instance.public = True
         return super().form_valid(form)
+
+class PostDeleteView(mixins.UserPassesTestMixin, generic.DeleteView):
+    model = Post
+    form_class = PostDeleteForm
+    success_url = reverse_lazy('shelves:index')
+    template_name = 'shelves/post_delete.html'
+
+    def test_func(self):
+        created_user = Post.objects.get(id=self.kwargs['pk']).created_by.username
+        user = self.request.user
+        return user.pk == created_user or user.is_superuser
 
 class BookSearchView(generic.CreateView):
     model = Book

@@ -36,6 +36,9 @@ class Post(models.Model):
     public = models.BooleanField('公開', default=False)
     created_at = models.DateTimeField(_('created at'), auto_now_add=True)
 
+    def __str__(self):
+        return self.title
+
 class Profile(models.Model):
     username = AutoOneToOneField(
         settings.AUTH_USER_MODEL,

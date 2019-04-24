@@ -11,6 +11,7 @@ urlpatterns = [
     path('profile/<str:pk>/update/', views.ProfileUpdateView.as_view(), name='profile_update'),
     path('post/<int:pk>', views.PostDetailView.as_view(), name='post_detail'),
     path('post/<int:pk>/update/', views.PostUpdateView.as_view(), name='post_update'),
+    path('post/<int:pk>/delete/', views.PostDeleteView.as_view(), name='post_delete'),
     path('recommend_user/', views.RecommendUserView.as_view(), name='recommend_user'),
     path('book_search/', views.BookSearchView.as_view(), name='book_search'),
     path('book/<str:pk>', views.BookDetailView.as_view(), name='book_detail'),
