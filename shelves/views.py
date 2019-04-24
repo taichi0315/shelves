@@ -104,7 +104,7 @@ class BookSearchView(generic.CreateView):
     def form_valid(self, form):
         self.object = form.save()
 
-        self.new_post = Post(Book=self.object, created_by=self.request.user, title=self.object.title, rating=2.5)
+        self.new_post = Post(item=self.object, created_by=self.request.user, title=self.object.title, rating=2.5)
         self.new_post.save()
 
         return super().form_valid(form)
